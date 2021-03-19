@@ -1,0 +1,47 @@
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.light {
+    background-color: #D8D5D5;
+}
+
+#topbar {
+    background: #0487AF !important;
+    height: 50% !important;
+}
+
+.invite-table {
+    /* overflow: hidden; */
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 479px) {
+    #topbar {
+        display: none;
+    }
+    #navBar {
+        background-color: #0487AF !important;
+    }
+    #svgImg {
+        background-color: white;
+    }
+    #collapsedNavbar {
+        color: black;
+    }
+}
+
+#navBarToggle {
+    background-color: white;
+}
+
+#content {
+    height: 40px;
+}
+#navBar {
+   border-bottom: solid;
+   border-bottom-width: 0.5px;
+   border-bottom-color: lightgray;
+}
+/* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
