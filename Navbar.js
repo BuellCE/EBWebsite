@@ -6,3 +6,8 @@ $(document).on("scroll", ()=>{
     $("#self-image").width(a);
     $("#self-image").height(a);
 });
+
+$( document ).ready(function() {
+    $("#header").load("header.html"); 
+    $("#footer").load("footer.html"); 
+});
