@@ -10,8 +10,8 @@ $(document).ready(function() {
 
 function resizeTopBar(){
     var a = 110 - $(document).scrollTop();
-    if (a < 70){
-        a = 70;
+    if (a < 60){
+        a = 60;
     }
     $("#self-image").width(a);
     $("#self-image").height(a);
