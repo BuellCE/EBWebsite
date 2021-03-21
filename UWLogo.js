@@ -36,7 +36,7 @@ function updateEducationContents(){
     }
 
     educationElement.style.marginTop = (450-p) + "px";
-    educationElement.style.opacity = (p / 200) - 1;
+    educationElement.style.opacity = Math.max(Math.min((p / 200) - 1, 1), 0);
 }
 
 function getEducationElement(){

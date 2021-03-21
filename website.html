@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Evan Buell - Website Project</title>
+    <link rel="icon" href="assets/images/tab-icon.png">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-extended.css">
+    <link rel="stylesheet" href="Styles.css">
+    <script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="Navbar.js"></script>
+</head>
+
+<body>
+
+    <div id="header"></div>
+    
+    <div style="background-image: linear-gradient(to right, #DDD, #02d837); padding-top: 110px;">
+        <div class="float-xl-middle p-4 text-right text-dark" style="max-width: 15in;">
+            <h1 class="font-weight-bold text-light display-3 ml-2 pt-5">
+                Project
+            </h1>
+            <h4 class="text-light display-5 m-2 pb-4">Personal Website<br>
+        </div>
+    </div>
+
+    <div class="py-4 px-4 d-flex justify-content-center">
+        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Website-Image.webp" style="max-width: 8in;" alt="Website Photo">
+    </div>
+
+    <div class="float-xl-middle text-dark flex-row d-flex justify-content-center pb-5">
+        <div class="mx-3" style="max-width: 11in; font-size: 17px;">
+            <p class="double-text-spacing">
+                The front end of this website was created with HTML, CSS, and Javascript. I also decided to use Bootstrap since it allows developers
+                to easily scale their site for mobile platforms without any limitations. I used some JQuery since it allows more functionality
+                than basic javascript, while remaining simple.
+            </p>
+            <p class="double-text-spacing" >
+                Since this website was created using Github Pages as the host, there was some difficulties surrounding development. Github pages only allows
+                static pages to be served to the client, and does so directly from a github repository. This meant I couldn't use a back-end templating engine
+                to dynamically render pages. Typically I would handle this on the back-end using Node.js Express with Handlebars, as I have a lot of experience 
+                with it, however I decided to stick with Github Pages and find another work around.
+            </p>
+            <p class="double-text-spacing">
+                Templating is usually important since it enables developers to avoid repetition in code. Take this website for example, every page on this site
+                has a navigation bar at the top, and a footer at the bottom. With several pages on this website, it would be bad practice to have each page include
+                their own navigation bar and footer elements. What if I needed to make a change?            
+            </p>
+            <p class="double-text-spacing">
+                My solution was to use JQuery to load in the code of a separate html document and place it inside an element of the rendered page. 
+                For example, lets say I had two HTML files: home.html and nav.html. When the client loads home.html, the JQuery code will execute and pull the 
+                code from nav.html and place it all within an element in home.html. All the code found in nav.html is now a child element contained in home.html.
+            </p>
+
+            <div class="d-flex justify-content-center my-2">
+            <img class="d-block w-100 smooth-edges project-images" src="assets/images/codeSnips/navbar.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <p class="double-text-spacing">
+                Making a simple website this simple should typically go off without a hitch. Besides the one work around, the process of making the website was
+                very simple since I have had prior experience.
+            </p>
+            <p class="double-text-spacing">
+                Thanks in part to bootstrap, this website works very well on mobile as well, and can dynamically change based on the size of the browser.
+            </p>
+            <p class="double-text-spacing">
+                Check out the source code on GitHub
+                <a href="#" class="pr-2 pt-5">
+                    here
+                </a>
+            </p>
+        </div>
+    </div>
+
+
+    <div id="footer"></div>
+
+</body>
+</html>

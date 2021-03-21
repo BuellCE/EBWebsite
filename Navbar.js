@@ -3,9 +3,9 @@ $(document).on("scroll", ()=>{
 });
 
 $(document).ready(function() {
-    resizeTopBar();
     $("#header").load("header.html"); 
-    $("#footer").load("footer.html"); 
+    $("#footer").load("footer.html");
+    resizeTopBar(); 
 });
 
 function resizeTopBar(){
