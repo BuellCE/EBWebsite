@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Evan Buell - Planet Project</title>
+    <link rel="icon" href="assets/images/tab-icon.png">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-extended.css">
+    <link rel="stylesheet" href="Styles.css">
+    <script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="Navbar.js"></script>
+</head>
+
+<body>
+
+    <div id="header"></div>
+    
+    <div style="background-image: linear-gradient(to right, #DDD, #02d837); padding-top: 110px;">
+        <div class="float-xl-middle p-4 text-right text-dark" style="max-width: 15in;">
+            <h1 class="font-weight-bold text-light display-3 ml-2 pt-5">
+                Project
+            </h1>
+            <h4 class="text-light display-5 m-2 pb-4">Procedural Planets<br>
+        </div>
+    </div>
+
+    <div class="py-4 px-4 d-flex justify-content-center">
+        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Planets-Image.webp" style="max-width: 8in;" alt="Website Photo">
+    </div>
+
+    <div class="float-xl-middle text-dark flex-row d-flex justify-content-center pb-5">
+        <div class="mx-3 double-text-spacing" style="max-width: 11in; font-size: 17px;">
+
+            <div class="d-flex justify-content-center my-2">
+                <p class="double-text-spacing text-center">
+                    <a href="#">Project Overview</a>
+                    <br>
+                    <a href="#">Generating Planets</a>
+                    <br>
+                    <a href="#">Applying Gravity and Movement</a>
+                    <br>
+                    <a href="#">Styling Environment</a>
+                </p>
+            </div>
+
+            <h4 class="text-center">
+                Project Overview
+            </h4>
+            <p>
+                In this project I wanted to generate planets with random terrain in a 3d space, and be able to move around them in a manner that is realistic. 
+                For this to happen, I need to make several algorithms that are able to spawn in planets that consist of several meshes (chunks), 
+                calculate the planet normals for gravity and movement, and seemlessly travel between planets.
+            </p>
+            <p>
+                Since some of these algorithms can get complicated, I decided to make the project in the Unity Engine and write the scripts using C#. From my
+                experience with Unity and Unreal Engines, I found the Unity Engine allowed for a quicker workflow over the Unreal Engine with C++, which is why 
+                I chose it for this project.
+            </p>
+            <p>
+                There are a lot of areas of programming involved in making this work, so instead of covering everything, I will only cover the areas that
+                required the most attention.
+            </p>
+
+            <h4 class="text-center">
+                Generating Planets
+            </h4>
+            <p>
+                There are multiple ways I can think of to generate a planet, however each solution would have their pros and cons. One way that I considered was to
+                generate a generic cube and use subdivision to divide each surface of the cube into more surfaces in order to add detail.
+                The cube would be subdivided until it has the desired amount of detail, then I would normalize the distance of each point of the cube's surface
+                with the center of the cube. This would essentially turn the cube into a sphere with enough vertices to start adding hills and mountains to our planets.
+                The biggest problem with this approach though is not all surfaces of the planet will be equal. Below is an illustration of a cube that has been subdivided twice
+                as the vertices are being normalized into a sphere-like shape.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/subdividedCube.jpg" style="max-width: 8in;" alt="Code snip">
+            </div>
+            <p>
+                It is clear that the surfaces near where the point of the cube existed are different than the rest of the surfaces. For this reason I took a different
+                approach. By applying the same steps we did above but to a icosahedron (a polyhedron with 20 faces), our shape will more closely resemble a sphere. The main
+                drawback to this approach is I would have to first generate a icosahedron, which isn't as simple as a cube. Below is an illustration of a icosahedron that has
+                been subdivided three times with all vertices being normalized.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/icosahedronSubdivide.jpg" style="max-width: 8in;" alt="Code snip">
+            </div>
+            <p>
+                Visually it's a big improvement over the normalized cube. While I made these shapes using Blender for testing, the shapes should turn out the same in Unity, so lets
+                start programming. In order to generate Unity objects, we must make a INSERT HERE!!! Below is the code to generate a icosahedron.
+            </p>
+            <p>
+                Icosahedron CODE HERE!
+            </p>
+            <p>
+                Next we need to subdivide the icosahedron, ensuring all vertices on the surface of the icosahedron are the same distance from the center.
+            </p>
+            <p>
+                Subdivide CODE HERE!
+            </p>
+            <p>
+                The last thing the shape of our planet needs is some random terrain such as hills or mountains. There are several ways to do this, however the most obvious
+                way is to add multiple layers of perlin noise (also called octaves). Perlin noise is an pseudo-random gradient of blacks and whites, and we can use this to represent
+                the height of our planet at any given point. A point of black would mean no elevation gain on the planet, while a point of white by contrast
+                means the elevation gain at that point is at a maximum.
+            </p>
+            <p>
+                Perlin NOISE IMAGE HERE
+            </p>
+        </div>
+    </div>
+
+
+    <div id="footer"></div>
+
+</body>
+</html>
