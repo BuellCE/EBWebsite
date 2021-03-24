@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Evan Buell - Website Project</title>
+    <link rel="icon" href="assets/images/tab-icon.png">
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-extended.css">
+    <link rel="stylesheet" href="Styles.css">
+    <script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="bootstrap/js/popper.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="Navbar.js"></script>
+</head>
+
+<body>
+
+    <div id="header"></div>
+    
+    <div style="background-image: linear-gradient(to right, #DDD, #02d837); padding-top: 110px;">
+        <div class="float-xl-middle p-4 text-right text-dark" style="max-width: 15in;">
+            <h1 class="font-weight-bold text-light display-3 ml-2 pt-5">
+                Project
+            </h1>
+            <h4 class="text-light display-5 m-2 pb-4">Sneak Game<br>
+        </div>
+    </div>
+
+    <div class="py-4 px-4 d-flex justify-content-center">
+        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Sneak-Image.webp" style="max-width: 8in;" alt="Website Photo">
+    </div>
+
+    <div class="float-xl-middle text-dark flex-row d-flex justify-content-center pb-5">
+        <div class="mx-3 double-text-spacing" style="max-width: 11in; font-size: 17px;">
+            <div class="d-flex justify-content-center my-2">
+                <p class="double-text-spacing text-center">
+                    <a href="#Project-Overview">Project Overview</a>
+                    <br>
+                    <a href="#Generating-Mazes">Generating Mazes</a>
+                    <br>
+                    <a href="#AI">Artificial Intelligence</a>
+                    <br>
+                    <a href="#Conclusion">Conclusion</a>
+                </p>
+            </div>
+            <h4 id="Project-Overview" class="text-center">
+                Project Overview
+            </h4>
+            <p>
+                In this project I will create a cops-and-robbers type game using the Unity Engine with c#. I wanted to create a fully functional mini-game that explores
+                ideas that I am unfamiliar with. The game concept is simple: Randomly generate a grid-based maze where the player's objective is to make it to the end without
+                being caught by the cops. The lighting will be dim, so cops can only see the player if spotted with their flashlights. The player's movement will cause noise, so
+                they will need a level of stealth to move past the cops.
+            </p>
+            <p>
+                While the game sounds simple on paper, there are a variety of complications required to pull it off. The maze, for example, needs to be
+                randomly generated, and all open areas need to be connected such that there are no closed off spaces inaccessible to the player. Furthermore,
+                this map needs to be rendered into a 2d image in order to show the player the layout of the maze. Perhaps the most difficult task is to have
+                the cops navigate around the maze without getting hung up on obstacles. When the cop spots the player, they will begin to chase the player until they are caught.
+                This means the artificial intelligence will need to be able to find the shortest route from their position to the player's position at any given moment, and update
+                this route in realtime. These difficulties will be the main focus of discussion for this project.
+            </p>
+            <h4 id="Generating-Mazes" class="text-center">
+                Generating Mazes
+            </h4>
+            <p>
+                In order to generate the mazes we will need an element of psuedo-randomness in our code. The most obvious way to acheive maze generation
+                on a grid is to use perlin noise. Perlin noise is a pseudo-random procedural gradient of blacks and whites, and we can use this to represent 
+                whether a specific square in our grid should be open space or a solid wall.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/noise.jpg" style="max-width: 3in;" alt="Code snip">
+            </div>
+            <p>
+                We can take samples of the perlin noise and evaluate them. If a given sample is brighter than a specified threshold, we can make it open space. Otherwise
+                we place a wall at the corresponding location. The higher the threshold of brightness, the more solid walls that will generate, and the less open our maze will be.
+                If we set this threshold to about 50% we should have about half of the grid generate as walls with the other half being open space. If we grab samples from the
+                perlin noise, having each sample relatively close to eachother, we should have a map with long corridors and a minimum amount of closed off rooms. The last important
+                aspect is to increase the wall spawning threshold for areas of the grid closer to the border of our maze. Doing this will allow walls to spawn around the 
+                map in a way that looks more fluent than a 1-block thick border.
+            </p>
+            <p>
+                Generating the first maze, and it looks like the following:
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges project-images" src="assets/images/sneakMap.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <p>
+                The yellow area represents open space, with darker areas being walls. Getting to this point is relatively simple, however there are a lot of problems.
+                We can identify areas of the maze that are unreachable and other areas that are too small to bother opening up. The image below is all the areas of the maze
+                put into categories that we will focus on.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges project-images" src="assets/images/mazeMapSegmented.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <list>
+                <li>Red areas are chunks of open space that we want to connect by removing the walls that separate them.</li>
+                <li>The dark blue area is the main border of the map, and consists entirely of walls</li>
+                <li>Lighter blue areas are walls that are inside our open area.</li>
+                <li>Green areas are chunks of open space that are too small to open up. They will need to be replaced with walls.</li>
+            </list>
+            <p>
+                Now that the areas of the maze are defined, we need a method to find them at runtime, place them in lists, and process them. We can loop over every position
+                in the grid, but that alone can't group the tiles together into connected areas. My solution is to add a Queue of tiles. This queue would take a tile, process it,
+                and add it's adjacent tiles to the queue under certain conditions. When being processed, if the tile is not of the same type as the original (wall or open space) 
+                then the adjacent tiles would not be added to the Queue. All tiles during this process that are the same type as the original 
+                will be stored in a list, and when finished, the list will contain all tiles of the specific area. If we do this to all tiles that have been unprocessed 
+                then we will get lists of every chunk of tiles as defined above.
+            </p>
+            <p>
+                To better illustrate this concept, consider the image below. 
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/TileQueue.jpg" style="max-width: 4in;" alt="Code snip">
+            </div>
+            <p>
+                For this example, lets represent walls with the black squares, and our starting tile as the red square. The algorithm evaluates this example in the following manner:
+                <list>
+                    <li>The red square is evaluated as an open-space tile, so we add it to the list. It then adds all adjacent tiles to a queue (all blue squares).</li>
+                    <li>Tile two is taken from the queue and evaluated as an open space tile, so we add it to the list with the red tile. It then adds all it's adjacent tiles to the queue (all green squares).</li>
+                    <li>Tile 3 is the next in the queue so we evaluate it. It's an open-tile square so we add it to the list, and add all it's adjacent tiles to the queue (the purple tiles).</li>
+                    <li>This continues with tile 4, it adds the orange tiles 11 & 12 to the queue.</li>
+                    <li>This continues with tile 5, it adds the cyan tile 13 to the queue.</li>
+                    <li>The green tile 6 is evaluated next and added to the list, however it has no adjacent tiles of the same type, so it adds nothing to the queue.</li>
+                    <li>Tile 7 is able to add the yellow tile 14 to the queue.</li>
+                </list>
+            </p>
+            <p>
+                This algorithm will continue until all 16 tiles within the chunk of open-spaced tiles are evaluated and added to the list. Since we keep track of previously
+                evaluated tiles, we can know which tiles haven't been evaluated, and use them for the next starting point of the algorithm.
+            </p>
+            <p>
+                Now that we have our grouped areas of tiles, we can do a simple size check of each list and remove those of a small enough size. This removes the green
+                areas we have identified on our maze.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/mazeMapSegmented.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges ml-2" src="assets/images/mazeMapSegmented2.jpg" style="max-width: 3in;" alt="Code snip">
+            </div>
+            <p>
+                The next step is to connect the red areas of tiles together so our player can access all open areas. To do this we loop over the areas of open-spaced tiles,
+                and for each area we find the closest area of the same type. The image below shows the closest connected areas in yellow.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/mazeMapConnected.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <p>
+                When that the closest areas are identified it becomes the simple process of removing wall tiles in order to open the areas up to eachother. Our maze,
+                now complete, looks like the following:
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/finishedMap.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <p>
+                The last task for the maze is to spawn in an end goal. The end goal should always be the furthest distance away from where the player starts.
+                In order to find the furthest distance, we can apply the queue-block algorithm used previously but have the starting tile be the player's start
+                location. We evaluate tiles until the queue is empty, and use the last tile from the queue as the end goal, since it will be the farthest away
+                from the player. The following image is the maze with the player's start location (green), with the end location (red).
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/finishedMaze.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <h4 id="AI" class="text-center">
+                Artificial Intelligence
+            </h4>
+            <p>
+                For this game to be fun, the cops will need a level of intelligence that adds difficulty for the player. Cops will need to be able to
+                navigate the maze and find the fastest route to the player from any given location. The cop can be broken down into the following states:
+                <list>
+                    <li>Patrol state: The cop is walking around the maze in search of the player.</li>
+                    <li>Investigating state: The cop heard the player move, and will check the location of the sound in hopes of finding the player.</li>
+                    <li>Chasing state: The cop has spotted the player with their flashlight, so the cop will chase the player in attempts to catch them.</li>
+                </list>
+            </p>
+            <p>
+                Since the cop can be broken down into states that drastically affect their behavior, I will use the state design pattern to process the cop's
+                behavior.
+            </p>
+            <p>
+                The patrol state will work by choosing a random location in the maze, and having the cop move to that location. Once there the cop will look around
+                and then choose a new location. This process will repeat unless the state is changed by either hearing the player run nearby (move to investigating state)
+                or the player is spotted withing the cop's flashlight (move to chasing state).
+            </p>
+            <p>
+                The investigating state will only be activated if the cop hears the player move nearby. This will cause the cop to navigate in random locations around the
+                area of the noise. The cop will only exit this state if a given amount of time has passed (move to patrol state), or the player is spotted withing the cop's 
+                flashlight (move to chasing state).
+            </p>
+            <p>
+                The chasing state will only be actived if the cop spots the player with their flashlight. The cop will begin to run at the player, and will follow them
+                around walls. The cop will only exit this state if the player leaves the cop's line of site for several seconds (move to patrol state).
+            </p>
+            <p>
+                The following State Flow Diagram represents the states of the cop.
+            </p>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/copStateFlowDiagram.jpg" style="max-width: 5.5in;" alt="Code snip">
+            </div>
+            <p>
+                In order for the cop to navigate through the maze, we will need to setup the Unity Engine's navigation mesh (navmesh) which will represent the area of the maze that 
+                the cops can move around. This mesh will be almost identical to the area of our maze that can be walked on by the player.
+                In simple terms to setup a navmesh, we must first identify a walking space (floor) and navigation obstacles (walls). Our walls will have the "Nav Mesh Obstacle"
+                component added to them, which will be used to identify where the navmesh should be cut. With the obstacles place on the floor we can bake the navmesh to the ground.
+                Our cops, when given the "Nav Mesh Agent" component, will now be able to navigate from any location on the navmesh to any new location on the navmesh. The
+                movement will be handled separately.
+            </p>
+            <h4 id="Conclusion" class="text-center">
+                Conclusion
+            </h4>
+            <p>
+                While there were topics I didn't discuss such as player movement, the user interface, and level progression, I touched base on the most complicated 
+                aspects of the game. This wasn't meant to be a guide, but instead my thought process and explanation of design decisions on the more complicated 
+                topics of the project. I am happy with how the game turned out, however the art is currently a bit lacking which is possibly something I can address in the future.
+                A video demo of the game can be found below.
+            </p>
+            <p>
+                The source code can be found on github 
+                <a href="#">here</a>
+            </p>
+            <p>
+                This game is also fully playable and can be downloaded
+                <a href="#">here</a>
+            </p>
+        </div>
+    </div>
+
+
+    <div id="footer"></div>
+
+</body>
+</html>
