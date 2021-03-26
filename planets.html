@@ -7,11 +7,11 @@
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-extended.css">
-    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="universal/Styles.css">
     <script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="Navbar.js"></script>
+    <script src="universal/Navbar.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="py-4 px-4 d-flex justify-content-center">
-        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Planets-Image.webp" style="max-width: 8in;" alt="Website Photo">
+        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Projects/Planets-Image.webp" style="max-width: 8in;" alt="Website Photo">
     </div>
 
     <div class="float-xl-middle text-dark flex-row d-flex justify-content-center pb-5">
@@ -78,7 +78,7 @@
                 as the vertices are being normalized into a sphere-like shape.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/subdividedCube.jpg" style="max-width: 8in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/subdividedCube.jpg" style="max-width: 8in;" alt="Code snip">
             </div>
             <p>
                 It is clear that the surfaces where the corner of the cube existed are different than the rest of the surfaces. For this reason I took a different
@@ -87,7 +87,7 @@
                 been subdivided three times with all vertices being normalized.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/icosahedronSubdivide.jpg" style="max-width: 8in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/icosahedronSubdivide.jpg" style="max-width: 8in;" alt="Code snip">
             </div>
             <p>
                 Visually it's a big improvement over the normalized cube. The biggest noticeable different however, is the shape of the surfaces are now triangles rather than
@@ -99,7 +99,7 @@
                 Each triangle has 3 vertices and 3 lines, so we will make 3 new vertices for each triangle.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/triangles.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/triangles.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 The above image shows the vertices of the original triangle in red. During the subdivision process we will create new vertices, shown as the blue circles, and join
@@ -124,7 +124,7 @@
                 and high elevations) and our terrain should look smooth.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/noise.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/noise.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 The image above is an example of the noise we will use. Imagine it represents the height of our planet, we can take a sample point of the noise, get the gradient
@@ -132,7 +132,7 @@
                 until we have fully looped over every vertex on our planet. Below is an example of how we will take our sample points from the noise.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/noiseWithPoints.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/noiseWithPoints.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 If we apply several noises to our planet, but have the sample points change in spacing for each, we get what's called octaves. We do this to have more
@@ -141,8 +141,10 @@
                 while the second could represent mountains since the change in color (height) between the points is less drastic
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/noiseWithPoints.jpg" style="max-width: 3in;" alt="Code snip">
-                <img class="d-block w-100 smooth-edges ml-2" src="assets/images/noiseWithManyPoints.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/noiseWithPoints.jpg" style="max-width: 3in;" alt="Code snip">
+            </div>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/noiseWithManyPoints.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 While 2d noise would work well for adding elevation to a 2d plane, our planets are represented as 3d objects. Therefore, we will need to use 3d noise. The
@@ -165,7 +167,7 @@
                 When we apply four octaves of varrying noise spacing and height multipliers, we get an object like the following:
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/firstPlanet.jpg" style="max-width: 4in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/firstPlanet.jpg" style="max-width: 4in;" alt="Code snip">
             </div>
             <p>
                 While this works, it is important that we divide the planet up into several different objects, called chunks, to add performance benifits.
@@ -206,7 +208,7 @@
                 two other vectors. Using this, the output would be our desired forwards direction.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/crossProduct.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Planet/crossProduct.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 For backwards movement we do the same thing as forwards but with the left-facing direction of the camera. For left and right movement we take the 

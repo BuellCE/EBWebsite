@@ -24,7 +24,7 @@
     1px 1px 0 #000; 
 }
 #university-background{
-    background-image: url("assets/images/universityBackground.jpg");
+    background-image: url("../assets/images/EducationPage/universityBackground.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: 48.75%;

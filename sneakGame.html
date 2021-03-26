@@ -7,11 +7,11 @@
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-extended.css">
-    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="universal/Styles.css">
     <script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>
     <script src="bootstrap/js/popper.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="Navbar.js"></script>
+    <script src="universal/Navbar.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="py-4 px-4 d-flex justify-content-center">
-        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Sneak-Image.webp" style="max-width: 8in;" alt="Website Photo">
+        <img class="d-block w-100 smooth-edges project-images" src="assets/images/Projects/Sneak-Image.webp" style="max-width: 8in;" alt="Website Photo">
     </div>
 
     <div class="float-xl-middle text-dark flex-row d-flex justify-content-center pb-5">
@@ -70,7 +70,7 @@
                 whether a specific square in our grid should be open space or a solid wall.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/noise.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/noise.jpg" style="max-width: 3in;" alt="Code snip">
             </div>
             <p>
                 We can take samples of the perlin noise and evaluate them. If a given sample is brighter than a specified threshold, we can represent it as open space. If
@@ -84,7 +84,7 @@
                 Generating the first maze, and it looks like the following:
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges project-images" src="assets/images/sneakMap.jpg" style="max-width: 3.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges project-images" src="assets/images/Projects/Sneak/sneakMap.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <p>
                 The yellow area represents open space, with darker areas being walls. Getting to this point is relatively simple, however there are a lot of problems.
@@ -92,7 +92,7 @@
                 put into categories that we will focus on.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges project-images" src="assets/images/mazeMapSegmented.jpg" style="max-width: 3.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges project-images" src="assets/images/Projects/Sneak/mazeMapSegmented.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <list>
                 <li>Red areas are chunks of open space that we want to connect by removing the walls that separate them.</li>
@@ -112,7 +112,7 @@
                 To better illustrate this concept, consider the image below. 
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/TileQueue.jpg" style="max-width: 4in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/TileQueue.jpg" style="max-width: 4in;" alt="Code snip">
             </div>
             <p>
                 For this example, lets represent walls with the black squares, and our starting tile as the red square. The algorithm evaluates this example in the following manner:
@@ -136,22 +136,24 @@
                 areas we have identified on our maze.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/mazeMapSegmented.jpg" style="max-width: 3in;" alt="Code snip">
-                <img class="d-block w-100 smooth-edges ml-2" src="assets/images/mazeMapSegmented2.jpg" style="max-width: 3in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/mazeMapSegmented.jpg" style="max-width: 3.5in;" alt="Code snip">
+            </div>
+            <div class="d-flex justify-content-center my-2">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/mazeMapSegmented2.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <p>
                 The next step is to connect the red areas of tiles together so our player can access all open areas. To do this we loop over the areas of open-spaced tiles,
                 and for each area we find the closest area of the same type. The image below shows the closest connected areas in yellow.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/mazeMapConnected.jpg" style="max-width: 3.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/mazeMapConnected.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <p>
                 When the closest areas are identified, it becomes the simple process of removing the wall tiles between them in order to open the areas up to eachother. Our maze,
                 now complete, looks like the following:
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/finishedMap.jpg" style="max-width: 3.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/finishedMap.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <p>
                 The last task for the maze is to spawn in an end goal. The end goal should always be the furthest distance away from where the player starts.
@@ -161,7 +163,7 @@
                 with the player's start location (green), with the end location (red).
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/finishedMaze.jpg" style="max-width: 3.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/finishedMaze.jpg" style="max-width: 3.5in;" alt="Code snip">
             </div>
             <p>
                 Now that the maze is mapped out, it is possible to physically generate within the 3d space. I added a plane for the ground, and cubes for the walls. The grid
@@ -170,7 +172,7 @@
                 within the Unity editor.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/physicalMaze.jpg" style="max-width: 8in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/physicalMaze.jpg" style="max-width: 8in;" alt="Code snip">
             </div>
             <h4 id="AI" class="text-center">
                 Artificial Intelligence
@@ -205,7 +207,7 @@
                 The following State Flow Diagram represents the states of the cop.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/copStateFlowDiagram.jpg" style="max-width: 5.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/copStateFlowDiagram.jpg" style="max-width: 5.5in;" alt="Code snip">
             </div>
             <p>
                 In order for the cop to navigate through the maze, we will need to setup the Unity Engine's navigation mesh (navmesh) which will represent the area of the maze that 
@@ -222,7 +224,7 @@
                 line from it's current location to each blue dot. When reached, we tell the cop to move to the next blue dot, until eventually it hits the destination.
             </p>
             <div class="d-flex justify-content-center my-2">
-                <img class="d-block w-100 smooth-edges" src="assets/images/mazeNavigation.jpg" style="max-width: 4.5in;" alt="Code snip">
+                <img class="d-block w-100 smooth-edges" src="assets/images/Projects/Sneak/mazeNavigation.jpg" style="max-width: 4.5in;" alt="Code snip">
             </div>
             <h4 id="Conclusion" class="text-center">
                 Conclusion
