@@ -9,7 +9,7 @@ $(document).ready(function() {
 });
 
 function resizeTopBar(){
-    var a = 110 - $(document).scrollTop();
+    var a = 115 - $(document).scrollTop();
     if (a < 60){
         a = 60;
     }
